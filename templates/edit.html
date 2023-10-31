@@ -1,0 +1,246 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container justify-content-lg-end">
+        <h2>Welcome {{ request.POST.username }}</h2>
+    </div>
+</nav>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CRUD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <form action="{% if student.id %}{% url 'base' student.id %}{% else %}{% url 'base' %}{% endif %}" method="post">
+        {% csrf_token %}
+
+        <h1 class="text-center mt-5">CRUD OPERATIONS</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div class="container mt-5 bg-white">
+            <div class="border p-4">
+                <h1 class="text-center">Profile Form</h1>
+
+                <!-- Category A: Personal Profile -->
+                <div class="mb-4">
+                    <h2 class="border-bottom pb-2">Category A: Personal Profile</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="fullNames" class="form-label">Full Names:</label>
+                                <input type="text" class="form-control" id="fullNames" name="fullNames" oninput="this.value=this.value.toUpperCase()" value="{{ student.fullNames }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Age:</label>
+                                <input type="number" class="form-control" id="age" name="age" value="{{ student.age }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">Gender:</label>
+                                <select class="form-select" id="gender" name="gender" required>
+                                  <option value="male" {% if student.gender == 'male' %}selected{% endif %}>Male</option>
+                                  <option value="female" {% if student.gender == 'female' %}selected{% endif %}>Female</option>
+                              </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="maritalStatus" class="form-label">Marital Status:</label>
+                                <select class="form-select" id="maritalStatus" name="maritalStatus" required>
+                                  <option value="married" {% if student.maritalStatus == 'married' %}selected{% endif %}>Married</option>
+                                  <option value="single" {% if student.maritalStatus == 'single' %}selected{% endif %}>Single</option>
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category B: Educational Background -->
+                <div class="mb-4">
+                    <h2 class="border-bottom pb-2">Category B: Educational Background</h2>
+                    <!-- Primary School -->
+                    <div class="mb-4">
+                        <h3>Primary School</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="primaryMaths" class="form-label">Maths Grade:</label>
+                                    <select class="form-select" id="primaryMaths" name="primaryMaths" required>
+                                      <option value="A" {% if student.primaryMaths == 'A' %}selected{% endif %}>A</option>
+                                      <option value="B" {% if student.primaryMaths == 'B' %}selected{% endif %}>B</option>
+                                      <option value="C" {% if student.primaryMaths == 'C' %}selected{% endif %}>C</option>
+                                      <option value="D" {% if student.primaryMaths == 'D' %}selected{% endif %}>D</option>
+                                      <option value="E" {% if student.primaryMaths == 'E' %}selected{% endif %}>E</option>
+                                  </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="primaryScience" class="form-label">Science Grade:</label>
+                                    <select class="form-select" id="primaryScience" name="primaryScience" required>
+                                      <option value="A" {% if student.primaryScience == 'A' %}selected{% endif %}>A</option>
+                                      <option value="B" {% if student.primaryScience == 'B' %}selected{% endif %}>B</option>
+                                      <option value="C" {% if student.primaryScience == 'C' %}selected{% endif %}>C</option>
+                                      <option value="D" {% if student.primaryScience == 'D' %}selected{% endif %}>D</option>
+                                      <option value="E" {% if student.primaryScience == 'E' %}selected{% endif %}>E</option>
+                                  </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="primaryEnglish" class="form-label">English Grade:</label>
+                                    <select class="form-select" id="primaryEnglish" name="primaryEnglish" required>
+                                      <option value="A" {% if student.primaryEnglish == 'A' %}selected{% endif %}>A</option>
+                                      <option value="B" {% if student.primaryEnglish == 'B' %}selected{% endif %}>B</option>
+                                      <option value="C" {% if student.primaryEnglish == 'C' %}selected{% endif %}>C</option>
+                                      <option value="D" {% if student.primaryEnglish == 'D' %}selected{% endif %}>D</option>
+                                      <option value="E" {% if student.primaryEnglish == 'E' %}selected{% endif %}>E</option>
+                                  </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="PrimarymeanGrade" class="form-label text-danger">Primary meanGrade:</label>
+                                    <select class="form-select text-danger" id="PrimarymeanGrade" name="PrimarymeanGrade" required>
+                                      <option value="A" {% if student.PrimarymeanGrade == 'A' %}selected{% endif %}>A</option>
+                                      <option value="B" {% if student.PrimarymeanGrade == 'B' %}selected{% endif %}>B</option>
+                                      <option value="C" {% if student.PrimarymeanGrade == 'C' %}selected{% endif %}>C</option>
+                                      <option value="D" {% if student.PrimarymeanGrade == 'D' %}selected{% endif %}>D</option>
+                                      <option value="E" {% if student.PrimarymeanGrade == 'E' %}selected{% endif %}>E</option>
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- High School -->
+                    <div class="mb-4">
+                        <h3>High School</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="highschoolMaths" class="form-label">Maths Grade:</label>
+                                    <select class="form-select" id="highschoolMaths" name="highschoolMaths">
+                                      <option value="A" {% if student.highschoolMaths == 'A' %}selected{% endif %}>A</option>
+                                      <option value="B" {% if student.highschoolMaths == 'B' %}selected{% endif %}>B</option>
+                                      <option value="C" {% if student.highschoolMaths == 'C' %}selected{% endif %}>C</option>
+                                      <option value="D" {% if student.highschoolMaths == 'D' %}selected{% endif %}>D</option>
+                                      <option value="E" {% if student.highschoolMaths == 'E' %}selected{% endif %}>E</option>
+                                      <option value="notDone" {% if student.highschoolMaths == 'notDone' %}selected{% endif %}>Not Done</option>
+                                  </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="highschoolEnglish" class="form-label">English Grade:</label>
+                                    <select class="form-select" id="highschoolEnglish" name="highschoolEnglish">
+                                      <option value="A" {% if student.highschoolEnglish == 'A' %}selected{% endif %}>A</option>
+                                      <option value="B" {% if student.highschoolEnglish == 'B' %}selected{% endif %}>B</option>
+                                      <option value="C" {% if student.highschoolEnglish == 'C' %}selected{% endif %}>C</option>
+                                      <option value="D" {% if student.highschoolEnglish == 'D' %}selected{% endif %}>D</option>
+                                      <option value="E" {% if student.highschoolEnglish == 'E' %}selected{% endif %}>E</option>
+                                      <option value="notDone" {% if student.highschoolEnglish == 'notDone' %}selected{% endif %}>Not Done</option>
+                                  </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="highschoolPhysics" class="form-label">Physics Grade:</label>
+                                    <select class="form-select" id="highschoolPhysics" name="highschoolPhysics">
+                                      <option value="A" {% if student.highschoolPhysics == 'A' %}selected{% endif %}>A</option>
+                                      <option value="B" {% if student.highschoolPhysics == 'B' %}selected{% endif %}>B</option>
+                                      <option value="C" {% if student.highschoolPhysics == 'C' %}selected{% endif %}>C</option>
+                                      <option value="D" {% if student.highschoolPhysics == 'D' %}selected{% endif %}>D</option>
+                                      <option value="E" {% if student.highschoolPhysics == 'E' %}selected{% endif %}>E</option>
+                                      <option value="notDone" {% if student.highschoolPhysics == 'notDone' %}selected{% endif %}>Not Done</option>
+                                  </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="highschoolChemistry" class="form-label">Chemistry Grade:</label>
+                                    <select class="form-select" id="highschoolChemistry" name="highschoolChemistry">
+                                      <option value="A" {% if student.highschoolChemistry == 'A' %}selected{% endif %}>A</option>
+                                      <option value="B" {% if student.highschoolChemistry == 'B' %}selected{% endif %}>B</option>
+                                      <option value="C" {% if student.highschoolChemistry == 'C' %}selected{% endif %}>C</option>
+                                      <option value="D" {% if student.highschoolChemistry == 'D' %}selected{% endif %}>D</option>
+                                      <option value="E" {% if student.highschoolChemistry == 'E' %}selected{% endif %}>E</option>
+                                      <option value="notDone" {% if student.highschoolChemistry == 'notDone' %}selected{% endif %}>Not Done</option>
+                                  </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3 ">
+                                    <label for="highschoolBiology" class="form-label ">Biology Grade:</label>
+                                    <select class="form-select" id="highschoolBiology" name="highschoolBiology">
+      <option value="A" {% if student.highschoolBiology == 'A' %}selected{% endif %}>A</option>
+      <option value="B" {% if student.highschoolBiology == 'B' %}selected{% endif %}>B</option>
+      <option value="C" {% if student.highschoolBiology == 'C' %}selected{% endif %}>C</option>
+      <option value="D" {% if student.highschoolBiology == 'D' %}selected{% endif %}>D</option>
+      <option value="E" {% if student.highschoolBiology == 'E' %}selected{% endif %}>E</option>
+      <option value="notDone" {% if student.highschoolBiology == 'notDone' %}selected{% endif %}>Not Done</option>
+  </select>
+                                </div>
+                                <div class="mb-3 ">
+                                    <label for="highschoolGeography " class="form-label ">Geography Grade:</label>
+                                    <select class="form-select " id="highschoolGeography" name="highschoolGeography">
+      <option value="A" {% if student.highschoolGeography == 'A' %}selected{% endif %}>A</option>
+      <option value="B" {% if student.highschoolGeography == 'B' %}selected{% endif %}>B</option>
+      <option value="C" {% if student.highschoolGeography == 'C' %}selected{% endif %}>C</option>
+      <option value="D" {% if student.highschoolGeography == 'D' %}selected{% endif %}>D</option>
+      <option value="E" {% if student.highschoolGeography == 'E' %}selected{% endif %}>E</option>
+      <option value="notDone" {% if student.highschoolGeography == 'notDone' %}selected{% endif %}>Not Done</option>
+  </select>
+                                </div>
+                                <div class="mb-3 ">
+                                    <label for="SecondarymeanGrade" class="form-label text-danger ">Secondary meanGrade:</label>
+                                    <select class="form-select text-danger" id="SecondarymeanGrade" name="SecondarymeanGrade" required>
+      <option value="A" {% if student.SecondarymeanGrade == 'A' %}selected{% endif %}>A</option>
+      <option value="B" {% if student.SecondarymeanGrade == 'B' %}selected{% endif %}>B</option>
+      <option value="C" {% if student.SecondarymeanGrade == 'C' %}selected{% endif %}>C</option>
+      <option value="D" {% if student.SecondarymeanGrade == 'D' %}selected{% endif %}>D</option>
+      <option value="E" {% if student.SecondarymeanGrade == 'E' %}selected{% endif %}>E</option>
+  </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- College/University -->
+                    <div>
+                        <h3>College/University</h3>
+                        <div class="row ">
+                            <div class="col-md-6 ">
+                                <div class="mb-3 ">
+                                    <label for="collegeCourseTitle " class="form-label ">Title of the Course:</label>
+                                    <input type="text " class="form-control " id="collegeCourseTitle" name="collegeCourseTitle" oninput="this.value=this.value.toUpperCase() " value="{{ student.collegeCourseTitle }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="mb-3 ">
+                                    <label for="collegeCourseGrade " class="form-label text-danger ">Course Grade:</label>
+                                    <select class="form-select text-danger" id="collegeCourseGrade" name="collegeCourseGrade">
+    <option value="firstClass" {% if student.collegeCourseGrade == 'firstClass' %}selected{% endif %}>First Class</option>
+    <option value="secondClassUpper" {% if student.collegeCourseGrade == 'secondClassUpper' %}selected{% endif %}>Second Class Upper</option>
+    <option value="secondClassLower" {% if student.collegeCourseGrade == 'secondClassLower' %}selected{% endif %}>Second Class Lower</option>
+    <option value="pass" {% if student.collegeCourseGrade == 'pass' %}selected{% endif %}>Pass</option>
+</select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-outline-success">Save</button>
+                    <a class="text-decoration-none" href="{% url 'lists' %}"><button type="button" class="btn btn-outline-success">View</button></a>
+                </div>
+            </div>
+
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js " integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL " crossorigin="anonymous "></script>
+</body>
+
+</html>

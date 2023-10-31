@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student's Lists</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .collapse {
+            display: none;
+        }
+        
+        .show {
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container justify-content-lg-end">
+            <a href="{% url 'logout' %}" class="text-decoration-none">
+                <button class="btn btn-bg btn-outline-secondary mx-2" type="button">Logout</button>
+            </a>
+            <a href="/" class="text-decoration-none">
+                <button class="btn btn-bg btn-outline-secondary mx-2" type="button">Back</button>
+            </a>
+
+        </div>
+    </nav>
+
+    <br><br><br>
+    <div class="container mb-lg-3">
+        <div class="row">
+            <div class="col-md-12 d-flex align-items-start justify-content-center" style="max-height: 3%;">
+                {% if messages %}
+                <ul class="messages list-unstyled">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                        <div class="alert alert-secondary alert-dismissible" style="color: rgba(127, 99, 226, 0.705);">
+                            {{ message }} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        </li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <form action="{% url 'lists' %}" method="post">
+        {% csrf_token %}
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+                <div class="col-md-12">
+                    <h1 class="col-md-6 text-center mx-auto">Student's Lists</h1>
+
+
+                    {% for student in students reversed %}
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <!-- Card 1 -->
+                            <div class="card">
+                                <div class="card-header" id="details1Heading">
+                                    <h5 class="mb-0">
+                                        <span class="student-name">{{ student.id }} {{user.id}}| {{ student.fullNames }}</span>
+                                    </h5>
+                                </div>
+
+                                <div id="details1" class="collapse show" aria-labelledby="details1Heading" data-parent="#detailsAccordion">
+                                    <div class="card-body bg-success-subtle">
+                                        <h5 class="card-title">Personal Profile</h5>
+                                        <hr>
+                                        <p class="card-text">Age: {{student.age}}</p>
+                                        <p class="card-text">Gender: {{student.gender}}</p>
+                                        <p class="card-text">Status: {{student.maritalStatus}}</p>
+                                    </div>
+                                    <div class="card-body bg-danger-subtle">
+                                        <h5 class="card-title">Grades</h5>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h6 class="text-warning">Primary School Grades</h6>
+                                                <div class="col-mb-3">
+                                                    <p class="card-text">Primary Maths: {{student.primaryMaths}}</p>
+                                                    <p class="card-text">Primary English: {{student.primaryEnglish}}</p>
+                                                    <p class="card-text">Primary Science: {{student.primaryScience}}</p>
+                                                    <p class="card-text text-danger">Primary-MG: {{student.PrimarymeanGrade}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6 class="text-warning">Secondary School Grades</h6>
+                                                <p class="card-text">Secondary-English: {{student.highschoolEnglish}}</p>
+                                                <p class="card-text">Secondary-Biology: {{student.highschoolBiology}}</p>
+                                                <p class="card-text">Secondary-Chemistry: {{student.highschoolChemistry}}</p>
+                                                <p class="card-text">Secondary-Physics: {{student.highschoolPhysics}}</p>
+                                                <p class="card-text">Secondary-Georgraphy: {{student.highschoolGeography}}</p>
+                                                <p class="card-text text-danger">Secondary-MG: {{student.SecondarymeanGrade}} </p>
+                                            </div>
+                                        </div>
+                                        <br> <br>
+                                        <div class="d-flex align-content-start">
+                                            <div class="text-start">
+                                                <h6 class="text-warning">College/University Grades</h6>
+                                                <p class="card-text">Course: {{ student.collegeCourseTitle }}</p>
+                                                <p class="card-text text-danger">College/University: {{ student.collegeCourseGrade }}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <br>
+                                        <a href="{% url 'edit' student.id %}" class="btn btn-primary">Edit</a>
+                                        <a href="{% url 'delete' student.id %}" class="btn btn-primary">Delete</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br>
+                        </div>
+
+                    </div>
+                    {%endfor%}
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+
+
+</html>

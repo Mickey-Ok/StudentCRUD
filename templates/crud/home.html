@@ -1,0 +1,275 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container justify-content-lg-end">
+        <h2>Welcome {{user.username}}</h2>
+    </div>
+    <a href="{% url 'logout' %}" class="text-decoration-none">
+        <button class="btn btn-bg btn-outline-secondary mx-2" type="button">Logout</button>
+    </a>
+</nav>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CRUD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <br><br><br>
+    <div class="container mb-lg-3">
+        <div class="row">
+            <div class="col-md-12 d-flex align-items-start justify-content-center" style="max-height: 3%;">
+                {% if messages %}
+                <ul class="messages list-unstyled">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                        <div class="alert alert-secondary alert-dismissible" style="color: rgba(127, 99, 226, 0.705);">
+                            {{ message }} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        </li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <form action="{% if student.id %}{% url 'base' student.id %}{% else %}{% url 'base' %}{% endif %}" method="post">
+
+
+
+        {% csrf_token %}
+
+        <h1 class="text-center mt-5">CRUD OPERATIONS</h1>
+
+
+
+        <div class="container mt-5 bg-white">
+            <div class="border p-4">
+                <h1 class="text-center">Profile Form</h1>
+
+                <!-- Category A: Personal Profile -->
+                <div class="mb-4">
+                    <h2 class="border-bottom pb-2">Category A: Personal Profile</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="fullNames" class="form-label">Full Names:</label>
+                                <input type="text" class="form-control" id="fullNames" name="fullNames" oninput="this.value=this.value.toUpperCase() " required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Age:</label>
+                                <input type="number" class="form-control" id="age" name="age" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">Gender:</label>
+                                <select class="form-select" id="gender" name="gender" required>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            </div>
+
+
+
+                            <div class="mb-3">
+                                <label for="maritalStatus" class="form-label">Marital Status:</label>
+                                <select class="form-select" id="maritalStatus" name="maritalStatus" required>
+                                <option value="married">Married</option>
+                                <option value="single">Single</option>
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category B: Educational Background -->
+                <div>
+                    <h2 class="border-bottom pb-2">Category B: Educational Background</h2>
+                    <!-- Primary School -->
+                    <div class="mb-4">
+                        <h3>Primary School</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="primaryMaths" class="form-label">Maths Grade:</label>
+                                    <select class="form-select" id="primaryMaths" name="primaryMaths" required>
+                                    <option value="A">A</option> 
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="primaryScience" class="form-label">Science Grade:</label>
+                                    <select class="form-select" id="primaryScience" name="primaryScience" required>
+                                    <!-- Add options for Science grade -->
+                                    <option value="A">A</option> 
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="primaryEnglish" class="form-label">English Grade:</label>
+                                    <select class="form-select" id="primaryEnglish" name="primaryEnglish" required>
+                                    <!-- Add options for English grade -->
+                                    <option value="A">A</option> 
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="PrimarymeanGrade" class="form-label text-danger">Primary meanGrade:</label>
+                                    <select class="form-select text-danger" id="PrimarymeanGrade" name="PrimarymeanGrade" required>
+                                        <option value="A">A</option> 
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                            </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- High School -->
+                    <div class="mb-4 ">
+                        <h3>High School</h3>
+                        <div class="row ">
+                            <div class="col-md-6 ">
+                                <div class="mb-3 ">
+                                    <label for="highschoolMaths " class="form-label ">Maths Grade:</label>
+                                    <select class="form-select " id="highschoolMaths" name="highschoolMaths">
+                                    <!-- Add options for Math grade -->
+                                    <option value="A">A</option> 
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                    <option value="notDone ">Not Done</option>
+                                </select>
+                                </div>
+                                <div class="mb-3 ">
+                                    <label for="highschoolEnglish " class="form-label ">English Grade:</label>
+                                    <select class="form-select " id="highschoolEnglish" name="highschoolEnglish">
+                                    <option value="A">A</option> 
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                    <option value="notDone ">Not Done</option>
+                                </select>
+                                </div>
+                                <div class="mb-3 ">
+                                    <label for="highschoolPhysics " class="form-label ">Physics Grade:</label>
+                                    <select class="form-select " id="highschoolPhysics" name="highschoolPhysics">
+                                    <option value="A">A</option> 
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                    <option value="notDone ">Not Done</option>
+                                </select>
+                                </div>
+                                <div class="mb-3 ">
+                                    <label for="highschoolChemistry" class="form-label ">Chemistry Grade:</label>
+                                    <select class="form-select" id="highschoolChemistry" name="highschoolChemistry">
+                                    <option value="A">A</option> 
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                    <option value="notDone ">Not Done</option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="mb-3 ">
+                                    <label for="highschoolBiology" class="form-label ">Biology Grade:</label>
+                                    <select class="form-select" id="highschoolBiology" name="highschoolBiology">
+                                    <option value="A">A</option> 
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                    <option value="notDone ">Not Done</option>
+                                </select>
+                                </div>
+                                <div class="mb-3 ">
+                                    <label for="highschoolGeography " class="form-label ">Geography Grade:</label>
+                                    <select class="form-select " id="highschoolGeography" name="highschoolGeography">
+                                    <option value="A">A</option> 
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                    <option value="notDone ">Not Done</option>
+                                </select>
+                                </div>
+                                <div class="mb-3 ">
+                                    <label for="SecondarymeanGrade" class="form-label text-danger">Secondary meanGrade:</label>
+                                    <select class="form-select text-danger " id="SecondarymeanGrade" name="SecondarymeanGrade" required>
+                                    <option value="A">A</option> 
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                            </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- College/University -->
+                    <div>
+                        <h3>College/University</h3>
+                        <div class="row ">
+                            <div class="col-md-6 ">
+                                <div class="mb-3 ">
+                                    <label for="collegeCourseTitle " class="form-label ">Title of the Course:</label>
+                                    <input type="text " class="form-control " id="collegeCourseTitle" name="collegeCourseTitle" oninput="this.value=this.value.toUpperCase() ">
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="mb-3 ">
+                                    <label for="collegeCourseGrade " class="form-label text-danger ">Course Grade:</label>
+                                    <select class="form-select text-danger" id="collegeCourseGrade" name="collegeCourseGrade">
+                                  <option value="firstClass">First Class</option>
+                                  <option value="secondClassUpper">Second Class Upper</option>
+                                  <option value="secondClassLower">Second Class Lower</option>
+                                  <option value="pass">Pass</option>
+                              </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-outline-success">Save</button>
+                <a class="text-decoration-none" href="{% url 'lists' %}"><button type="button" class="btn btn-outline-success">View</button></a>
+            </div>
+
+        </div>
+
+    </form>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js " integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL " crossorigin="anonymous "></script>
+</body>
+
+</html>
